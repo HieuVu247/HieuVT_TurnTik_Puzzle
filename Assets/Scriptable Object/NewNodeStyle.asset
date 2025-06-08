@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29ee5e11cd619b45b4928e9c3d601fa, type: 3}
+  m_Name: NewNodeStyle
+  m_EditorClassIdentifier: 
+  connectedSprite: {fileID: 5139773703192522367, guid: 15d76e0905e807b4599d0a54717fe8c2, type: 3}
+  activeSprite: {fileID: -5905358785927170718, guid: bbd6843ab5c215e4a98a2f01885396ed, type: 3}
+  inactiveSprite: {fileID: -8527568592950175283, guid: 80147fdcd6e6f7c4b832319b30fc4122, type: 3}
