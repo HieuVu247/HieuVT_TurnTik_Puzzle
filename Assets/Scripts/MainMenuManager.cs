@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -20,7 +21,6 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
-        // Khi bắt đầu, luôn hiển thị Menu chính và tắt các màn hình khác
         mainMenuCanvas.SetActive(true);
         helpCanvas.SetActive(false);
         modeSelectCanvas.SetActive(false);
@@ -44,7 +44,7 @@ public class MainMenuManager : MonoBehaviour
         int highestLevelUnlocked = PlayerPrefs.GetInt("HighestLevelUnlocked", 1);
         if (highestLevelUnlocked <= 1)
         {
-            OnClickHelp(); // Nếu là người chơi mới, bật màn hình Help
+            OnClickHelp();
         }
         else
         {
@@ -62,13 +62,12 @@ public class MainMenuManager : MonoBehaviour
         helpCanvas.SetActive(false); // Chỉ đơn giản là tắt màn hình Help
     }
 
-    public void SelectMode(int mode) // 1 = Timer, 2 = No Timer
+    public void SelectMode(int mode)
     {
         PlayerPrefs.SetInt("GameMode", mode);
         PlayerPrefs.Save();
         
         ShowMainCanvas(levelSelectCanvas);
-        // Tạo lại các nút mỗi khi vào màn hình này
         PopulateLevelButtons(); 
     }
 
@@ -81,29 +80,40 @@ public class MainMenuManager : MonoBehaviour
 
     private void PopulateLevelButtons()
     {
+        // 1. Xóa các nút cũ đi để tránh tạo trùng lặp
         foreach (Transform child in levelButtonContainer)
         {
             Destroy(child.gameObject);
         }
 
+        // 2. Lấy tiến trình của người chơi
         int highestLevelUnlocked = PlayerPrefs.GetInt("HighestLevelUnlocked", 1);
 
+        // 3. Vòng lặp sẽ chạy qua TẤT CẢ các level có trong file config
         for (int i = 0; i < gameLevelsConfig.allLevels.Count; i++)
         {
+            // Tạo nút từ Prefab
             GameObject buttonGO = Instantiate(levelButtonPrefab, levelButtonContainer);
-            buttonGO.GetComponentInChildren<Text>().text = (i + 1).ToString();
-            
+            // Lấy component Button từ đối tượng vừa tạo
             Button button = buttonGO.GetComponent<Button>();
+            // Ghi số level lên nút
+            buttonGO.GetComponentInChildren<TMP_Text>().text = (i + 1).ToString();
+            
+            // Phải tạo một biến tạm 'levelIndex' ở đây để listener không bị lỗi
             int levelIndex = i;
 
+            // 4. Kiểm tra xem level này đã được mở khóa hay chưa
             if ((i + 1) > highestLevelUnlocked)
             {
-                button.interactable = false;
-                if(lockIconPrefab != null) Instantiate(lockIconPrefab, button.transform);
+                // Nếu BỊ KHÓA:
+                button.interactable = false; // Tắt khả năng tương tác của nút
+                if(lockIconPrefab != null) Instantiate(lockIconPrefab, button.transform); // Thêm icon ổ khóa
             }
             else
             {
-                button.interactable = true;
+                // Nếu ĐÃ MỞ:
+                button.interactable = true; // Bật khả năng tương tác
+                // Gán sự kiện OnClick bằng code
                 button.onClick.AddListener(() => PlayLevel(levelIndex));
             }
         }
@@ -114,5 +124,5 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetInt("SelectedLevelIndex", levelIndex);
         PlayerPrefs.Save();
         SceneManager.LoadScene("GameplayScene");
-    }
+    }   
 }

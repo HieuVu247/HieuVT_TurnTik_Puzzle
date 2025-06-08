@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class BellNode : BaseNode
@@ -22,6 +23,9 @@ public class BellNode : BaseNode
     {
         isBellActive = true;
         UpdateSprite();
+        // Chơi âm thanh và hiệu ứng
+        AudioManager.instance?.PlaySFX(AudioManager.instance.soundLibrary.bellRing);
+        transform.DOPunchScale(new Vector3(0.2f, 0.2f, 0), 0.4f, 10, 1);
     }
 
     public void DeactivateBell()

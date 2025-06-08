@@ -110,19 +110,23 @@ public class GameModeManager : MonoBehaviour
     // --- CÁC HÀM CHO NÚT BẤM ---
     public void RetryLevel()
     {
+        // Khôi phục thời gian trước khi tải lại scene
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToNextLevel()
     {
+        // Khôi phục thời gian trước khi tải scene mới
+        Time.timeScale = 1f;
         int nextLevelIndex = currentLevelIndex + 1;
-        PlayerPrefs.SetInt("SelectedLevelIndex", nextLevelIndex);
-        PlayerPrefs.Save();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // ... (phần còn lại của hàm giữ nguyên)
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("MainMenuScene"); // Đảm bảo tên scene chính xác
+        // Khôi phục thời gian trước khi về menu
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenuScene");
     }
 }
