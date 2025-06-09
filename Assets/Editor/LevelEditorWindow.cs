@@ -122,7 +122,7 @@ public class LevelEditorWindow : EditorWindow
         {
             NodePlacementInfo info = new NodePlacementInfo();
             info.position = node.transform.position;
-            info.nodeType = GetNodeTypeFromObject(node);
+            info.nodeType = GetNodeTypeFromObject(node, info); 
             data.nodes.Add(info);
         }
         
@@ -144,9 +144,14 @@ public class LevelEditorWindow : EditorWindow
         if (clockHand != null) DestroyImmediate(clockHand.gameObject);
     }
     
-    private NodeType GetNodeTypeFromObject(BaseNode node)
+    private NodeType GetNodeTypeFromObject(BaseNode node, NodePlacementInfo infoToPopulate)
     {
-        if (node is GoalNode) return NodeType.Goal;
+        if (node is GoalNode goalNode) // Sửa lại một chút ở đây
+        {
+            // Lưu lại góc xoay của GoalNode vào data
+            infoToPopulate.goalRotation = goalNode.transform.eulerAngles.z;
+            return NodeType.Goal;
+        }
         if (node is BellNode) return NodeType.Bell;
         if (node is DisappearingNode) return NodeType.Disappearing;
         return NodeType.Normal;

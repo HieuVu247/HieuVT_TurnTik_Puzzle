@@ -8,6 +8,7 @@ public class NodePlacementInfo
 {
     public NodeType nodeType;
     public Vector2 position;
+    public float goalRotation;
 }
 
 [CreateAssetMenu(fileName = "LevelData_00", menuName = "Puzzle Game/Level Data")]

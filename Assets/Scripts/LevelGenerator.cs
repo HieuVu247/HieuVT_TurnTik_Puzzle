@@ -48,7 +48,17 @@ public class LevelGenerator : MonoBehaviour
             GameObject prefabToSpawn = GetPrefabForNodeType(nodeInfo.nodeType, normalNodePrefab, bellNodePrefab, disappearingNodePrefab, goalNodePrefab);
             if (prefabToSpawn != null)
             {
-                Instantiate(prefabToSpawn, nodeInfo.position, Quaternion.identity, parent);
+                GameObject nodeInstance = Instantiate(prefabToSpawn, nodeInfo.position, Quaternion.identity, parent);
+                
+                if (nodeInfo.nodeType == NodeType.Goal)
+                {
+                    GoalNode goalNodeScript = nodeInstance.GetComponent<GoalNode>();
+                    if (goalNodeScript != null)
+                    {
+                        // Truyền dữ liệu từ LevelData vào GoalNode
+                        goalNodeScript.Configure(nodeInfo.goalRotation, data.hasSecondHand);
+                    }
+                }
             }
         }
     }
