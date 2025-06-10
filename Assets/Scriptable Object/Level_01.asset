@@ -13,19 +13,10 @@ MonoBehaviour:
   m_Name: Level_01
   m_EditorClassIdentifier: 
   levelIndex: 0
-  clockHandStartPosition: {x: -5.148596, y: -2.01}
-  clockHandStartRotationZ: 0
+  clockHandStartPosition: {x: 0, y: 0}
+  clockHandStartRotationZ: 180
   hasSecondHand: 0
   nodes:
-  - nodeType: 2
-    position: {x: 8.65, y: -5.7603106}
   - nodeType: 3
-    position: {x: 11.86, y: -0.71}
-  - nodeType: 1
-    position: {x: -1.5843954, y: 4.9243574}
-  - nodeType: 0
-    position: {x: -1.8065958, y: -0.014999986}
-  - nodeType: 0
-    position: {x: -5.148596, y: -5.01}
-  - nodeType: 0
-    position: {x: 3.59, y: -2.5622718}
+    position: {x: 0, y: 0}
+    goalRotation: 0

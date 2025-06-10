@@ -31,7 +31,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7161872467659364198}
+  - {fileID: 3884559565957677880}
+  - {fileID: 6588319219829711646}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3055168365326826392
@@ -103,38 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gizmoRadius: 6
   gizmoColor: {r: 0, g: 1, b: 0, a: 1}
---- !u!1 &1138543458708739703
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4510564872052179415}
-  m_Layer: 0
-  m_Name: ClockHandHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4510564872052179415
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1138543458708739703}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6588319219829711646}
-  m_Father: {fileID: 7161872467659364198}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  TargetHandBody: {fileID: 3316978447387617098}
+  SecondTargetHandler: {fileID: 1393662612383341256}
 --- !u!1 &1393662612383341256
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3884559565957677880}
   m_Layer: 0
-  m_Name: SecondHandHandler
+  m_Name: SecondTargetHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,14 +130,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393662612383341256}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.294134, w: 0.95576423}
+  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 1.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5251368809138007500}
-  m_Father: {fileID: 7161872467659364198}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -34.211}
+  m_Father: {fileID: 7454628435712108932}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
 --- !u!1 &3316978447387617098
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +149,7 @@ GameObject:
   - component: {fileID: 6588319219829711646}
   - component: {fileID: 6954364867656934765}
   m_Layer: 0
-  m_Name: ClockHand
+  m_Name: TargetHandBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +168,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4510564872052179415}
+  m_Father: {fileID: 7454628435712108932}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6954364867656934765
 SpriteRenderer:
@@ -254,39 +225,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &8142070886593189008
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7161872467659364198}
-  m_Layer: 0
-  m_Name: TargetHandler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7161872467659364198
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8142070886593189008}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4510564872052179415}
-  - {fileID: 3884559565957677880}
-  m_Father: {fileID: 7454628435712108932}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8858363788827637978
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +236,7 @@ GameObject:
   - component: {fileID: 5251368809138007500}
   - component: {fileID: 7388089010832646189}
   m_Layer: 0
-  m_Name: SecondHand
+  m_Name: SecondTargetBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

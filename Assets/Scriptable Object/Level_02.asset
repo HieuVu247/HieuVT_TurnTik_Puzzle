@@ -15,11 +15,21 @@ MonoBehaviour:
   levelIndex: 0
   clockHandStartPosition: {x: 0, y: 0}
   clockHandStartRotationZ: 0
-  hasSecondHand: 0
+  hasPlayerSecondHand: 1
+  playerSecondHandRotationZ: 60.000004
   nodes:
-  - nodeType: 3
-    position: {x: -10.99, y: 0.38080925}
   - nodeType: 0
-    position: {x: -6, y: -3}
+    position: {x: 6, y: -3}
+    goalMainHandRotation: 0
+    hasTargetSecondHand: 0
+    targetSecondHandRotation: 0
+  - nodeType: 3
+    position: {x: 12, y: -3}
+    goalMainHandRotation: 0
+    hasTargetSecondHand: 1
+    targetSecondHandRotation: 60.000004
   - nodeType: 0
     position: {x: 0, y: -3}
+    goalMainHandRotation: 0
+    hasTargetSecondHand: 0
+    targetSecondHandRotation: 0

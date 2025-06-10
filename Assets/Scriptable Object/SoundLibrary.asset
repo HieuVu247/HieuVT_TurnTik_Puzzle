@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ab8e1f88ac3d7649990876d3295dc95, type: 3}
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
-  uiClick: {fileID: 0}
-  uiWin: {fileID: 0}
-  uiLose: {fileID: 0}
-  handRotateStart: {fileID: 0}
-  handSnap: {fileID: 0}
-  bellRing: {fileID: 0}
+  uiClick: {fileID: 8300000, guid: 8f1af246a7529fd498984587fa18eed7, type: 3}
+  uiWin: {fileID: 8300000, guid: 608cb970d4be64d4bbc6ffc0a930b63b, type: 3}
+  uiLose: {fileID: 8300000, guid: cbd27b49f87468d488dcf52bcc0ac7f5, type: 3}
+  handRotateStart: {fileID: 8300000, guid: 2aba7ddde4e4c75438056b4a16d0a66c, type: 3}
+  handSnap: {fileID: 8300000, guid: 6dd3beab2efe013438d55e9aa841ebeb, type: 3}
+  bellRing: {fileID: 8300000, guid: 59f022eab5b03ee4da49333642da8b17, type: 3}
   backgroundMusic: {fileID: 0}

@@ -76,17 +76,13 @@ public class LevelEditorWindow : EditorWindow
 
     private void LoadLevelIntoScene()
     {
-        // Xóa các đối tượng level cũ trước khi tải
         ClearScene();
-        
-        // Dựng level từ data (tương tự LevelGenerator)
         LevelGenerator.GenerateLevel(currentLevelData, clockHandPrefab, normalNodePrefab, bellNodePrefab, disappearingNodePrefab, goalNodePrefab, null);
         Debug.Log("Đã tải thành công level: " + currentLevelData.name);
     }
 
     private void SaveSceneToNewData()
     {
-        // Mở cửa sổ để người dùng chọn nơi lưu file
         string path = EditorUtility.SaveFilePanelInProject("Save New Level Data", "NewLevelData", "asset", "Vui lòng chọn nơi lưu file");
         if (string.IsNullOrEmpty(path)) return;
         
@@ -95,65 +91,80 @@ public class LevelEditorWindow : EditorWindow
         
         AssetDatabase.CreateAsset(newLevelData, path);
         AssetDatabase.SaveAssets();
-        
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = newLevelData;
         
-        ClearScene(); 
         Debug.Log("Đã lưu level mới tại: " + path);
+        ClearScene();
+        Debug.Log("Đã dọn dẹp Scene, sẵn sàng để Play Test.");
     }
     
     private void SaveSceneToExistingData(LevelData dataToOverwrite)
     {
         PopulateDataFromScene(dataToOverwrite);
         
-        // Đánh dấu asset là đã bị thay đổi để Unity biết cần lưu lại
         EditorUtility.SetDirty(dataToOverwrite);
         AssetDatabase.SaveAssets();
-        ClearScene(); 
         Debug.Log("Đã ghi đè thành công level: " + dataToOverwrite.name);
+
+        ClearScene();
+        Debug.Log("Đã dọn dẹp Scene, sẵn sàng để Play Test.");
     }
 
     private void PopulateDataFromScene(LevelData data)
     {
         data.nodes.Clear();
-        BaseNode[] nodesInScene = FindObjectsOfType<BaseNode>();
-        foreach (var node in nodesInScene)
-        {
-            NodePlacementInfo info = new NodePlacementInfo();
-            info.position = node.transform.position;
-            info.nodeType = GetNodeTypeFromObject(node, info); 
-            data.nodes.Add(info);
-        }
-        
+
         ClockHand clockHand = FindObjectOfType<ClockHand>();
         if (clockHand != null)
         {
             data.clockHandStartPosition = clockHand.transform.position;
             data.clockHandStartRotationZ = clockHand.transform.eulerAngles.z;
-            data.hasSecondHand = (clockHand.secondHand != null && clockHand.secondHand.gameObject.activeSelf);
+
+            if (clockHand.secondHand != null)
+            {
+                data.hasPlayerSecondHand = clockHand.secondHand.gameObject.activeSelf;
+                Transform secondHandHandler = clockHand.secondHand.parent;
+                data.playerSecondHandRotationZ = secondHandHandler.localEulerAngles.z;
+            }
+            else
+            {
+                data.hasPlayerSecondHand = false;
+            }
+        }
+
+        BaseNode[] nodesInScene = FindObjectsOfType<BaseNode>();
+        foreach (var node in nodesInScene)
+        {
+            NodePlacementInfo info = new NodePlacementInfo();
+            info.position = node.transform.position;
+
+            if (node is GoalNode goalNode)
+            {
+                info.nodeType = NodeType.Goal;
+                info.goalMainHandRotation = goalNode.transform.eulerAngles.z;
+
+                GoalNode gnScript = node.GetComponent<GoalNode>();
+                if (gnScript != null && gnScript.SecondTargetHandler != null)
+                {
+                    info.hasTargetSecondHand = gnScript.SecondTargetHandler.activeSelf;
+                    info.targetSecondHandRotation = gnScript.SecondTargetHandler.transform.localEulerAngles.z;
+                }
+            }
+            else if (node is BellNode) { info.nodeType = NodeType.Bell; }
+            else if (node is DisappearingNode) { info.nodeType = NodeType.Disappearing; }
+            else { info.nodeType = NodeType.Normal; }
+
+            data.nodes.Add(info);
         }
     }
     
     private void ClearScene()
     {
         BaseNode[] nodes = FindObjectsOfType<BaseNode>();
-        foreach(var node in nodes) DestroyImmediate(node.gameObject);
+        foreach(var node in nodes) if(node != null) DestroyImmediate(node.gameObject);
         
         ClockHand clockHand = FindObjectOfType<ClockHand>();
         if (clockHand != null) DestroyImmediate(clockHand.gameObject);
-    }
-    
-    private NodeType GetNodeTypeFromObject(BaseNode node, NodePlacementInfo infoToPopulate)
-    {
-        if (node is GoalNode goalNode) // Sửa lại một chút ở đây
-        {
-            // Lưu lại góc xoay của GoalNode vào data
-            infoToPopulate.goalRotation = goalNode.transform.eulerAngles.z;
-            return NodeType.Goal;
-        }
-        if (node is BellNode) return NodeType.Bell;
-        if (node is DisappearingNode) return NodeType.Disappearing;
-        return NodeType.Normal;
     }
 }

@@ -2,28 +2,27 @@ using UnityEngine;
 
 public class GoalNode : BaseNode
 {
-    [Header("Các thành phần con")]
-    public GameObject secondHandVisual; // Kéo GO kim giây mục tiêu vào đây
-
-    /// <summary>
-    /// Hàm này được gọi bởi LevelGenerator để cài đặt cho GoalNode
-    /// </summary>
-    public void Configure(float targetRotation, bool showSecondHand)
+    [Header("Các thành phần con của mục tiêu")]
+    public GameObject TargetHandBody;
+    public GameObject SecondTargetHandler;
+    
+    public float targetRotationZ { get; private set; }
+    public void Configure(NodePlacementInfo goalInfo)
     {
-        // Xoay toàn bộ đối tượng GoalNode (tức là TargetHandler)
-        transform.rotation = Quaternion.Euler(0, 0, targetRotation);
+        this.targetRotationZ = goalInfo.goalMainHandRotation;
 
-        // Bật hoặc tắt hình ảnh kim giây
-        if (secondHandVisual != null)
+        transform.rotation = Quaternion.Euler(0, 0, this.targetRotationZ);
+
+        if (SecondTargetHandler != null)
         {
-            secondHandVisual.SetActive(showSecondHand);
+            SecondTargetHandler.SetActive(goalInfo.hasTargetSecondHand);
+            SecondTargetHandler.transform.localRotation = Quaternion.Euler(0, 0, goalInfo.targetSecondHandRotation);
         }
     }
     
-    // Ghi đè lại hàm Gizmo để vẽ màu khác biệt cho Nút Đích
     protected override void OnDrawGizmos()
     {
-        gizmoColor = Color.green; // Màu xanh lá cây cho may mắn!
+        gizmoColor = Color.green;
         base.OnDrawGizmos();
     }
 }

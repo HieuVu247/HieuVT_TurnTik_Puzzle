@@ -40,7 +40,8 @@ public class LevelGenerator : MonoBehaviour
         ClockHand clockHand = clockHandInstance.GetComponent<ClockHand>();
         if (clockHand != null && clockHand.secondHand != null)
         {
-            clockHand.secondHand.gameObject.SetActive(data.hasSecondHand);
+            clockHand.secondHand.gameObject.SetActive(data.hasPlayerSecondHand);
+            clockHand.secondHand.parent.localRotation = Quaternion.Euler(0, 0, data.playerSecondHandRotationZ);
         }
 
         foreach (var nodeInfo in data.nodes)
@@ -55,8 +56,7 @@ public class LevelGenerator : MonoBehaviour
                     GoalNode goalNodeScript = nodeInstance.GetComponent<GoalNode>();
                     if (goalNodeScript != null)
                     {
-                        // Truyền dữ liệu từ LevelData vào GoalNode
-                        goalNodeScript.Configure(nodeInfo.goalRotation, data.hasSecondHand);
+                        goalNodeScript.Configure(nodeInfo);
                     }
                 }
             }
